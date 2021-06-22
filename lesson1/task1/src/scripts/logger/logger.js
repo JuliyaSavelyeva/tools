@@ -1,4 +1,4 @@
-export const createLogger = (name) => {
+export const createLogger = name => {
   const logs = [];
 
   return {
