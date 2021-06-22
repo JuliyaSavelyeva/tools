@@ -1,33 +1,23 @@
-import "core-js/modules/es.array.find.js";
 import { renderTasks } from './renderer.js';
 import { updateTask, getTasksList } from './tasksGateway.js';
-export var onToggleTask = function onToggleTask(e) {
-  var updatedTasksList = function updatedTasksList(tasksList) {
-    var taskId = e.target.dataset.id;
-
-    var _tasksList$find = tasksList.find(function (task) {
-      return task.id === taskId;
-    }),
-        text = _tasksList$find.text,
-        createDate = _tasksList$find.createDate;
-
-    var done = e.target.checked;
-    var updatedTaskData = {
-      text: text,
-      createDate: createDate,
-      done: done,
+export const onToggleTask = e => {
+  const updatedTasksList = tasksList => {
+    const taskId = e.target.dataset.id;
+    const {
+      text,
+      createDate
+    } = tasksList.find(task => task.id === taskId);
+    const done = e.target.checked;
+    const updatedTaskData = {
+      text,
+      createDate,
+      done,
       finishDate: done ? new Date().toISOString() : null
     };
-    updateTask(taskId, updatedTaskData).then(function () {
-      return getTasksList();
-    }).then(function () {
-      return renderTasks();
-    });
+    updateTask(taskId, updatedTaskData).then(() => getTasksList()).then(() => renderTasks());
   };
 
-  getTasksList().then(function (tasksList) {
-    return updatedTasksList(tasksList);
-  });
+  getTasksList().then(tasksList => updatedTasksList(tasksList));
 }; // Prepare data
 // Update data to db
 // Read new data from server
