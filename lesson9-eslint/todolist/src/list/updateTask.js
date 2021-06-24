@@ -1,10 +1,10 @@
 import { renderTasks } from './renderer';
 import { updateTask, getTasksList } from './tasksGateway';
 
-export const onToggleTask = (e) => {
-  const updatedTasksList = (tasksList) => {
+export const onToggleTask = e => {
+  const updatedTasksList = tasksList => {
     const taskId = e.target.dataset.id;
-    const { text, createDate } = tasksList.find((task) => task.id === taskId);
+    const { text, createDate } = tasksList.find(task => task.id === taskId);
 
     const done = e.target.checked;
 
@@ -20,7 +20,7 @@ export const onToggleTask = (e) => {
       .then(() => renderTasks());
   };
 
-  getTasksList().then((tasksList) => updatedTasksList(tasksList));
+  getTasksList().then(tasksList => updatedTasksList(tasksList));
 };
 
 // Prepare data
